@@ -13,10 +13,11 @@ namespace NuGet.Protocol.Plugins
         private static readonly StringEnumConverter _enumConverter = new StringEnumConverter();
 
         private readonly DateTime _now;
-
+        private readonly DateTime _processStartTime;
         protected PluginLogMessage(DateTimeOffset now)
         {
             _now = now.UtcDateTime;
+            _processStartTime = System.Diagnostics.Process.GetCurrentProcess().StartTime;
         }
 
         protected string ToString(string type, JObject message)
@@ -33,6 +34,7 @@ namespace NuGet.Protocol.Plugins
 
             var outerMessage = new JObject(
                 new JProperty("now", _now.ToString("O")), // round-trip format
+                new JProperty("process start time", _processStartTime.ToString("O")), // round-trip format
                 new JProperty("type", type),
                 new JProperty("message", message));
 

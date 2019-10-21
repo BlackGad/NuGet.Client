@@ -262,11 +262,12 @@ namespace NuGet.Protocol.Plugins
                 }
                 catch (Exception e)
                 {
+                    var message = e.Message +"\n StackTrace: \n" + e.StackTrace;
                     pluginCreationResult = new PluginCreationResult(
                         string.Format(CultureInfo.CurrentCulture,
                             Strings.Plugin_ProblemStartingPlugin,
                             result.PluginFile.Path,
-                            e.Message),
+                            message),
                         e);
                 }
             }

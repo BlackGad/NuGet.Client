@@ -445,6 +445,7 @@ namespace NuGet.Protocol.Plugins
         private static void WriteCommonLogMessages(IPluginLogger logger)
         {
             logger.Write(new AssemblyLogMessage(logger.Now));
+            logger.Write(new EntryAssemblyLogMessage(logger.Now));
             logger.Write(new MachineLogMessage(logger.Now));
             logger.Write(new EnvironmentVariablesLogMessage(logger.Now));
             logger.Write(new ProcessLogMessage(logger.Now));
