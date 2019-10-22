@@ -262,6 +262,11 @@ namespace NuGet.Protocol.Plugins
                 }
                 catch (Exception e)
                 {
+                    if (PluginLogger.DefaultInstance.IsEnabled)
+                    {
+                        PluginLogger.DefaultInstance.Write(new ThreadPoolAtFailTimeLogMessage(PluginLogger.DefaultInstance.Now));
+                    }
+
                     var message = e.Message +"\n StackTrace: \n" + e.StackTrace;
                     pluginCreationResult = new PluginCreationResult(
                         string.Format(CultureInfo.CurrentCulture,

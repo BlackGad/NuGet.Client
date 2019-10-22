@@ -31,8 +31,8 @@ namespace NuGet.Protocol.Plugins
                 new JProperty("worker thread maximum count", _maxWorkerThreads),
                 new JProperty("completion port thread minimum count", _minCompletionPortThreads),
                 new JProperty("completion port thread maximum count", _maxCompletionPortThreads),
-                new JProperty("available worked threads", _maxCompletionPortThreads),
-                new JProperty("available completion port threads", _maxCompletionPortThreads)
+                new JProperty("available worked threads", _workedThread),
+                new JProperty("available completion port threads", _completionPortThread)
                 );
 
             return ToString("thread pool state at fail time", message);
