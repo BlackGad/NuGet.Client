@@ -27,7 +27,6 @@ namespace NuGet.Protocol.Plugins
             _state = state;
             _currentTaskId = Task.CurrentId;
             ThreadPool.GetAvailableThreads(out _aWorkerThreads, out _aComplPortThreads);
-
         }
 
         public override string ToString()
