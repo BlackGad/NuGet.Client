@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -14,6 +15,8 @@ namespace NuGet.Protocol.Plugins
         private readonly string _requestId;
         private readonly TaskState _state;
         private readonly MessageType _type;
+        private readonly int _aWorkerThreads;
+        private readonly int _aComplPortThreads;
 
         internal TaskLogMessage(DateTimeOffset now, string requestId, MessageMethod method, MessageType type, TaskState state)
             : base(now)
@@ -23,6 +26,8 @@ namespace NuGet.Protocol.Plugins
             _type = type;
             _state = state;
             _currentTaskId = Task.CurrentId;
+            ThreadPool.GetAvailableThreads(out _aWorkerThreads, out _aComplPortThreads);
+
         }
 
         public override string ToString()
@@ -31,7 +36,9 @@ namespace NuGet.Protocol.Plugins
                 new JProperty("request ID", _requestId),
                 new JProperty("method", _method),
                 new JProperty("type", _type),
-                new JProperty("state", _state));
+                new JProperty("state", _state),
+                new JProperty("aWorkerThreads", _aWorkerThreads),
+                new JProperty("aComplPortThreads", _aComplPortThreads));
 
             if (_currentTaskId.HasValue)
             {

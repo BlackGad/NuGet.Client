@@ -76,10 +76,7 @@ namespace NuGet.Protocol.Plugins
 
             var logRequest = MessageUtilities.DeserializePayload<LogRequest>(request);
             MessageResponseCode responseCode;
-            if (PluginLogger.DefaultInstance.IsEnabled)
-            {
-                PluginLogger.DefaultInstance.Write(new LogTaskLogMessage(PluginLogger.DefaultInstance.Now, request.RequestId, logRequest.Message, logRequest.LogLevel));
-            }
+
             if (logRequest.LogLevel >= _logLevel)
             {
                 Log(logRequest);

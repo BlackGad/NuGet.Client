@@ -14,9 +14,12 @@ namespace NuGet.Protocol.Plugins
 
         private readonly DateTime _now;
         private readonly DateTime _processStartTime;
+        private readonly DateTime _nowLessAcc;
+
         protected PluginLogMessage(DateTimeOffset now)
         {
             _now = now.UtcDateTime;
+            _nowLessAcc = DateTime.UtcNow;
             _processStartTime = System.Diagnostics.Process.GetCurrentProcess().StartTime;
         }
 
@@ -34,7 +37,8 @@ namespace NuGet.Protocol.Plugins
 
             var outerMessage = new JObject(
                 new JProperty("now", _now.ToString("O")), // round-trip format
-                new JProperty("process start time", _processStartTime.ToString("O")), // round-trip format
+                new JProperty("now-lessAcc", _nowLessAcc.ToString("O")), // round-trip format
+                new JProperty("pStart", _processStartTime.ToString("O")), // round-trip format
                 new JProperty("type", type),
                 new JProperty("message", message));
 
