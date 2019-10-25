@@ -21,7 +21,7 @@ namespace NuGet.Protocol.Plugins
 
         public bool IsEnabled { get; }
 
-        public DateTimeOffset Now => _startTime.AddMilliseconds((_stopwatch.ElapsedTicks * 10000000) / Stopwatch.Frequency);
+        public DateTimeOffset Now => _startTime.AddTicks((_stopwatch.ElapsedTicks * 10000000) / Stopwatch.Frequency);
 
         internal PluginLogger(IEnvironmentVariableReader environmentVariableReader)
         {
