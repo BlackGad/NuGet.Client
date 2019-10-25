@@ -20,7 +20,7 @@ namespace NuGet.Protocol.Plugins
         {
             _now = now.UtcDateTime;
             _nowLessAcc = DateTime.UtcNow;
-            _processStartTime = System.Diagnostics.Process.GetCurrentProcess().StartTime;
+            _processStartTime = System.Diagnostics.Process.GetCurrentProcess().StartTime.ToUniversalTime();
         }
 
         protected string ToString(string type, JObject message)
